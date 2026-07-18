@@ -1,0 +1,83 @@
+- make the TLI installer look like the classic installer
+    X fix the bug where setting up packages use the real percentage
+    X clamp the progress bar in updateProgress
+    X fix the bug where the font changes mid-way through installation
+    X fix the bug where all box drawing turn into question marks
+    X fix the bug where the user can see what they're typing
+    X implement automatic reboot
+    X fix the bug where resizing actually just limits the resolution
+    X make the vgaoem font wider, and fix all measurements
+    X fix the VGA font not having the double pipe symbols
+    X make the progress color actually yellow instead of this ugly orange
+    X make the automatic reboot have a timeout
+    X make the selection bar go all the way through
+    X get package name when using dlstatus
+    X make drawStatus() flicker less
+    X make package names look like windows filenames
+    X add progression for formatting
+    X go through screenshots of every screen to see if they match
+    X make the dots from lists correct
+    X make kbd/console-setup have their percentages 100%
+    X add a screen with "Please wait while Setup initializes your Windows XP configuration."
+    X make the VGA font have the 9px width VGA effect, and change term width to 80
+    ? make the "Starting Windows" strings come directly from the executable's strings
+    X use the right VGA font (preferrably from SeaBios: https://github.com/coreboot/seabios/blob/master/vgasrc/vgafonts.c)
+    X hide the ISOLINUX messages
+    X make the ISOLINUX patch be automatically done by build.sh
+    X hide the "automatic login" messages
+    X hide the kernel MOTD messages
+    X make bright red the exact same one as setup
+    X make a windows executable name for the "base" package
+    X make "Your computer will reboot" message have 4 dots instead of 3
+    X remove linux/debian/systemd logs when rebooting
+    X try to remove the backslash in the ISOLINUX custom string
+X make the TLI setup show errors
+X make the TLI setup repeat when install.sh wasn't found echoing the magic word
+- make .gitignore
+- make README.md
+- upload to github
+- make the OOBE load the real name from gsetup
+- make the OOBE use the actual username from gsetup instead of calculating it from the real name
+- make the OOBE load into lightdm
+- make the TLI setup install xfce-winxp-tc and configure it to use classic mode
+- make the TLI setup install wifi if needed
+- make the TLI setup have the EULA
+- make building use the Windows XP ISO and convert everything automatically
+- make building convert the SeaBios font automatically through git sumboduling the seabios github and making a tiny C program that exports the font as raw binary data
+X remove the "Please remove the CD-ROM then press Enter" message from the TLI setup's CDROM
+- make loading into the new system have it boot on 640x480
+- make the graphical setup configure xfce-winxp-tc to use Luna theme
+- make it automatically set the xfce-winxp-tc theme
+- set the fonts to the antialiased ones from wxp
+- make it automatically set the cursor
+- test installing on UEFI
+- make pressing L skip or uncover stuff in the TLI setup:
+    - pressing L on the Starting Windows will skip it
+    - pressing L on the actual installation will show the actual package names instead of the made up windows names
+- add wine
+- make wine look like windows xp
+- check if there is a windows xp qt theme
+- check if there is a windows xp gtk theme
+- set up windows xp plymouth theme
+- make the TLI setup install without internet
+- make the graphical installer look like windows xp
+- make the OOBE look like windows xp
+- instead of using getty autologin, run the program directly through systemd service or something else
+- hide GRUB messages from the installed system ("Booting `Debian'", "Loading initial ramdisk...")
+- customize the terminal to have a classic window and classic font
+- make the TLI installer have a system locale and keyboard layout selection
+- customize firefox to look like IE 6
+- make the control panel
+- make the display settings
+- make the desktop elements have the same names and icons as in windows xp
+- make VLC look like windows media player 9
+- make the icons change if the screen is set to be 16-bit or 8-bit color
+- make it use Microsoft SAM for text to speech
+- make the TLI setup install with actual partitioning
+- make the TLI setup serialize disks and partitions just like the Windows NT/XP setup does
+- make the blinking cursor in the ISOLINUX message go away
+- CHANGE THE KERNEL PANIC SCREEN TO A BSOD
+- GSM interference easter egg
+- windows xp gangster edition easter egg
+
+applications:
