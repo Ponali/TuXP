@@ -30,4 +30,4 @@ If the machine you're using needs manual setup to connect (e.g. Wi-Fi SSID/Passw
 
 ## Miscellaneous notes
 
-With this being based on Debian, this has support for UEFI, including [shim-powered Secure Boot](https://wiki.debian.org/SecureBoot) (which might need some troubleshooting). This has, however, not been thoroughly tested. If you are using this 
+With this being based on Debian, this has support for UEFI, including [shim-powered Secure Boot](https://wiki.debian.org/SecureBoot) (which might need some troubleshooting). This has, however, not been thoroughly tested. I reccomend you use a BIOS machine if possible for best experience.
