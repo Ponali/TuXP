@@ -15,9 +15,13 @@ The resulting ISO will most likely be in `build/live-image-amd64.hybrid.iso`.
 
 The installation process works like Windows XP, but only the first stages of the setup in text mode have been themed. The graphical setup, the OOBE, and the desktop are not configured to look like Windows XP.
 
+### First/Second stage (Text mode setup)
+
 The setup that runs in the first stage of installation expects the machine to be directly connected to the Internet without needing any user input or manual setup. For more information, check [Installing with a Wi-Fi connection](#installing-with-a-wi-fi-connection).
 
 Currently, the setup script used only installs to a **disk** (e.g. `/dev/sda`, `/dev/vda` or `/dev/nvme0n1`), and not a partition (e.g. `/dev/sda2`, `/dev/vda1` or `/dev/nvme0n1p7`). These disks are also not converted into text the same way Windows XP does, i.e. shows `sda ... 40955 MB` instead of `40955 MB Disk 0 at Id 0 on bus 0 on atapi [MBR]`. When Windows XP would ask you for which partition/volume to install to, this would instead ask you which disk to install to, which means some text have changed from the original.
+
+Due to limitations with how Linux handles the framebuffer and the graphics mode, trying to change the screen resolution might cause only the framebuffer to change resolution and not the actual display. Depending on what you run it on, it may pad or stretch to fit the GPU mode's resolution it started on. To accomodate this, the live ISO boots with the `video=720x400` kernel parameter, which sets the GPU mode to something close to 720x400 (this resolution corresponds to the 80x25 text mode on a 8+1x16 VGA font)
 
 Some of the VGA text is not in text mode due to the nature of how Linux boots (thus a bit after GRUB/ISOLINUX), so this has been configured to use a converted bitmap font taken from SeaBIOS (`Uni2-SeaBiosVGA9x16.psf`). The SeaBIOS font has been used in QEMU and Bochs, and has some minor differences with other VGA fonts (like `console-setup`'s `Uni2-VGA16.psf` and in VMWare) if you compare screenshots. Thus, you will see the first part of the setup as how QEMU/SeaBIOS would show it. For best experience, please use QEMU or libvirt.
 
