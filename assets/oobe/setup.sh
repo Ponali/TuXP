@@ -13,6 +13,9 @@ done
 for i in $(seq 1 5); do
     realn="${!i}"
     faken="$(getFakeName "$realn")"
+    if [ "$i" -eq 1 ]; then
+        faken=$(cat ../fakename.txt)
+    fi
     usermod -c "$realn" "$faken"
 done
 

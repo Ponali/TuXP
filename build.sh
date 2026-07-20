@@ -11,7 +11,7 @@ if ! [ -x "$(command -v lb)" ]; then
 fi
 
 # compile dir
-if ! [[ -d compiled ]]; then;
+if ! [[ -d compiled ]]; then
   mkdir compiled
 fi
 

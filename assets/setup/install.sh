@@ -180,5 +180,14 @@ echo PLEASEWAIT Copying assets...
 mkdir -p $TARGET/root/assets/
 cp -r /root/assets/ $TARGET/root/
 
+echo PLEASEWAIT Configuring root password...
+chroot $TARGET bash -c '
+passwd root < <(
+    echo "root"
+    echo "root"
+    yes ''
+) >/dev/null 2>/dev/null
+'
+
 echo FINISHED
 sleep 1 # race condition

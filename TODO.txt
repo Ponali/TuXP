@@ -33,11 +33,15 @@
     X try to remove the backslash in the ISOLINUX custom string
 X make the TLI setup show errors
 X make the TLI setup repeat when install.sh wasn't found echoing the magic word
-- make .gitignore
-- make README.md
-- upload to github
-- make the OOBE load the real name from gsetup
-- make the OOBE use the actual username from gsetup instead of calculating it from the real name
+X make .gitignore
+X make README.md
+X upload to github
+X make the OOBE load the real name from gsetup
+X make the OOBE use the actual username from gsetup instead of calculating it from the real name
+X make the GUI setup run apt --fix-broken install right at the end, with no interactivity
+X also install xxd
+- add the user to the sudoers file
+X put a password to root
 - make the OOBE load into lightdm
 - make the TLI setup install xfce-winxp-tc and configure it to use classic mode
 - make the TLI setup install wifi if needed
@@ -77,6 +81,7 @@ X remove the "Please remove the CD-ROM then press Enter" message from the TLI se
 - make the TLI setup serialize disks and partitions just like the Windows NT/XP setup does
 - make the blinking cursor in the ISOLINUX message go away
 - CHANGE THE KERNEL PANIC SCREEN TO A BSOD
+- put something cool on the terminal when it's compiling
 - GSM interference easter egg
 - windows xp gangster edition easter egg
 

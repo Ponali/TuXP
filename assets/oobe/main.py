@@ -24,6 +24,14 @@ entries = [ttk.Entry(root) for i in range(5)]
 for i in range(5):
     entries[i].place(x=20,y=60+20*i)
 
+with open("../realname.txt","r") as file:
+    rn = file.read()
+    rn.replace("\n","")
+    rn.strip()
+    entries[0].delete(0,tk.END)
+    entries[0].insert(0,rn)
+    file.close()
+
 def onNextPress():
     subprocess.run(["bash","setup.sh"]+[e.get() for e in entries])
 

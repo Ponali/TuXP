@@ -76,12 +76,13 @@ def drawBG():
 def fakeWindowsFile(pack):
     def shortenName(n):
         if len(n)<=8: return n
-        n = re.sub(r"[\-+0-9.]","",n)
+        n = re.sub(r"[\:\-+0-9.]","",n)
         if len(n)<=8: return n
         n = re.sub(r"[aeiou]","",n)
         return n[0:8]
     try:
         pack.replace("thunar","explorer")
+        pack.replace("amd64","")
         if "firefox" in pack:
             return "iexplore.exe"
         if pack.startswith("linux-image"):

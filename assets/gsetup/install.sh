@@ -7,6 +7,7 @@ echo "Configuring Debian"
 export TERM=linux
 export DEBIAN_FRONTEND=noninteractive
 dpkg --configure -a
+yes '' | apt --fix-broken install -y 2>/dev/null
 
 echo "Installing user"
 
@@ -14,12 +15,14 @@ echo "Installing user"
 name=$(yad --entry --text="Username:" --button="OK:0")
 pass=$(yad --entry --text="Password:" --button="OK:0")
 . ../fakename.sh
-adduser "$(getFakeName "$name")" < <(
+fakename=$(getFakeName "$name")
+adduser "$fakename" < <(
     echo "$pass"
     echo "$pass"
 ) >/dev/null 2>/dev/null
-usermod -aG sudo "$name"
-echo "$name" > ../username.txt
+usermod -aG sudo "$fakename"
+echo -n "$name" > ../realname.txt
+echo -n "$fakename" > ../fakename.txt
 
 # boot to OOBE
 echo "Making autologin boot to OOBE"
