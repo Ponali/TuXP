@@ -2,18 +2,18 @@
 
 This is a work-in-progress attempt at making a Linux-based operating system that is configured to look and feel exactly like Windows XP, sometimes down to the pixel.
 
-To build, you should normally be able to run `build.sh` in any Debian installation (or maybe anything that has `dpkg` and `apt`). You must have these dependencies installed:
+To build, you should normally be able to run `build.sh` in any Debian installation (or maybe anything that has `dpkg` and `apt`). You must have these programs installed (if they aren't already):
 
 - `gcc` for compiling ISOLINUX (and maybe other stuff later on in the future)
 - `live-build` for making a Debian live ISO
 
 The resulting ISO will most likely be in `build/live-image-amd64.hybrid.iso`.
 
-**WARNING**: Please start using this on a virtual machine if possible. This has almost only been tested on QEMU+libvirt under BIOS. You might lose your data when installing TuXP on a real machine, so please identify your disk through an existing Linux install or by its size in MiB, and be careful while using the installer. (Pressing Enter on the disk select will install immediately to simulate Windows XP's setup behavior.)
+**WARNING**: Please start using this on a virtual machine (if possible). This has almost only been tested on QEMU + libvirt under BIOS. You might lose your data when installing TuXP on a real machine, so please identify your disk through an existing Linux install or by its size in MiB, and be careful while using the installer. (Pressing Enter on the disk select will install immediately to simulate Windows XP's setup behavior.)
 
 ## Current known limitations
 
-The installation process works like Windows XP, but only the first stages of the setup in text mode have been themed. The graphical setup, the OOBE, and the desktop are not configured to look like Windows XP.
+The installation process works like Windows XP, but only the first stages of the setup in text mode have been configured to look like Windows XP. The graphical setup, the OOBE, and the desktop are not configured to look like Windows XP.
 
 ### First/Second stage (Text mode setup)
 
