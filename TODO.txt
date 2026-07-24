@@ -40,14 +40,17 @@ X make the OOBE load the real name from gsetup
 X make the OOBE use the actual username from gsetup instead of calculating it from the real name
 X make the GUI setup run apt --fix-broken install right at the end, with no interactivity
 X also install xxd
-- add the user to the sudoers file
+X add the user to the sudoers file
 X put a password to root
-- make the OOBE load into lightdm
-- make the TLI setup install xfce-winxp-tc and configure it to use classic mode
+X make the OOBE load into lightdm
+X make the TLI setup install xfce-winxp-tc and configure it to use classic mode
+- make the windows key hook work
+- start booting xfce in 800x600 as a default
 - make the TLI setup install wifi if needed
 - make the TLI setup have the EULA
 - make building use the Windows XP ISO and convert everything automatically
 - make building convert the SeaBios font automatically through git sumboduling the seabios github and making a tiny C program that exports the font as raw binary data
+- convert the windows xp system fonts into X fonts instead of using Tahoma and Trebuchet MS
 X remove the "Please remove the CD-ROM then press Enter" message from the TLI setup's CDROM
 - make loading into the new system have it boot on 640x480
 - make the graphical setup configure xfce-winxp-tc to use Luna theme
@@ -62,11 +65,12 @@ X remove the "Please remove the CD-ROM then press Enter" message from the TLI se
 - make wine look like windows xp
 - check if there is a windows xp qt theme
 - check if there is a windows xp gtk theme
-- set up windows xp plymouth theme
+- set up windows xp plymouth theme (and also make the resolution 640x480) -> https://github.com/rozniak/xfce-winxp-tc/wiki/Manual-configuration-following-install#logon-screen-greeter
+- set up windows xp lightdm/login theme -> https://github.com/rozniak/xfce-winxp-tc/wiki/Manual-configuration-following-install#logon-screen-greeter
 - make the TLI setup install without internet
 - make the graphical installer look like windows xp
 - make the OOBE look like windows xp
-- instead of using getty autologin, run the program directly through systemd service or something else
+? instead of using getty autologin, run the program directly through systemd service or something else
 - hide GRUB messages from the installed system ("Booting `Debian'", "Loading initial ramdisk...")
 - customize the terminal to have a classic window and classic font
 - make the TLI installer have a system locale and keyboard layout selection
@@ -77,12 +81,14 @@ X remove the "Please remove the CD-ROM then press Enter" message from the TLI se
 - make VLC look like windows media player 9
 - make the icons change if the screen is set to be 16-bit or 8-bit color
 - make it use Microsoft SAM for text to speech
+- make symlinks for programs so that the Win+R dialog works with windows names (e.g. explorer -> thunar, iexplore -> firefox)
 - make the TLI setup install with actual partitioning
 - make the TLI setup serialize disks and partitions just like the Windows NT/XP setup does
 - make the blinking cursor in the ISOLINUX message go away
 - CHANGE THE KERNEL PANIC SCREEN TO A BSOD
-- put something cool on the terminal when it's compiling
+- put something cool on the terminal when it's compiling (chances are it's gonna take a shitton of time)
 - GSM interference easter egg
 - windows xp gangster edition easter egg
+- easter egg where putting in the konami code after being on linux mode would make it end by not displaying "Please wait while Setup initializes your Windows XP configuration.", then making the progress bar go from 100% to -100% and make the colors glitched out. this would later on make ALL images in the installed system inverted
 
 applications:

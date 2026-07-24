@@ -1,19 +1,21 @@
 #!/bin/bash
 
+set -e
+
 clear
 
 TARGET=/mnt/target
 umount -R $TARGET >/dev/null 2>/dev/null || true
 # lsblk
 # read -p "disk to format: " DISK  # DISK=/dev/sda
-# if [[ "$DISK" == *nvme* ]]; then
-#     PART1="${DISK}p1"
-#     PART2="${DISK}p2"
-# else
-#     PART1="${DISK}1"
-#     PART2="${DISK}2"
-# fi
 DISK="/dev/$1"
+if [[ "$DISK" == *nvme* ]]; then
+    PART1="${DISK}p1"
+    PART2="${DISK}p2"
+else
+    PART1="${DISK}1"
+    PART2="${DISK}2"
+fi
 
 # Wait for network
 nm-online -q --timeout=30 || {
@@ -32,7 +34,7 @@ if [ -d /sys/firmware/efi ]; then
     echo PARTITION 40
     parted -s "$DISK" set 1 esp on
     echo PARTITION 60
-    mkfs.vfat -F32 ${DISK}1
+    mkfs.vfat -F32 $PART1
 else
     echo PARTITION 25
     parted -s $DISK mkpart primary 0% "$bootPartSize"
@@ -41,12 +43,13 @@ else
 fi
 echo PARTITION 75
 parted -s $DISK mkpart primary ext4 "$bootPartSize" 100%
+sleep 1 # race condition
 echo PARTITION 100
-yes | mkfs.ext4 ${DISK}2
+yes | mkfs.ext4 $PART2
 
 # Mount target
 mkdir -p $TARGET
-mount ${DISK}2 $TARGET
+mount $PART2 $TARGET
 
 # Install base Debian system
 echo "STARTCOPYING"
@@ -66,11 +69,11 @@ cat > "$TARGET/etc/fstab" <<EOF
 # Please run 'systemctl daemon-reload' after making changes here.
 #
 # <file system> <mount point>   <type>  <options>       <dump>  <pass>
-UUID=$(blkid -s UUID -o value ${DISK}2)  /  ext4  defaults,errors=remount-ro  0  1
+UUID=$(blkid -s UUID -o value $PART2)  /  ext4  defaults,errors=remount-ro  0  1
 EOF
 if [ -d /sys/firmware/efi ]; then
 cat >> "$TARGET/etc/fstab" <<EOF
-UUID=$(blkid -s UUID -o value ${DISK}1)  /boot/efi  vfat  umask=0077  0  1
+UUID=$(blkid -s UUID -o value $PART1)  /boot/efi  vfat  umask=0077  0  1
 EOF
 fi
 
@@ -81,10 +84,13 @@ mount --bind /sys $TARGET/sys
 mount --bind /dev/pts $TARGET/dev/pts
 if [ -d /sys/firmware/efi ]; then
     mkdir -p "$TARGET/boot/efi"
-    mount "${DISK}1" "$TARGET/boot/efi"
+    mount "$PART1" "$TARGET/boot/efi"
     mount --bind /sys/firmware/efi/efivars \
         "$TARGET/sys/firmware/efi/efivars"
 fi
+
+# copy files
+cp -rv /root/xptc $TARGET/xptc
 
 # Install packages
 GRUBPACK="grub-pc"
@@ -99,7 +105,9 @@ apt-get install -y -o APT::Status-Fd=1 -o APT::Acquire::Progress-Fd=1 \
     linux-image-amd64 $GRUBPACK \
     parted sudo network-manager \
     python3-tk yad ffmpeg \
-    xfce4 xfce4-terminal firefox-esr fastfetch telnet
+    xfce4 xfce4-terminal xcape \
+    firefox-esr fastfetch telnet \
+    /xptc/*.deb
 
 apt-get install -y --download-only kbd console-setup
 dpkg --unpack /var/cache/apt/archives/kbd_*.deb
@@ -150,6 +158,7 @@ message-bg-color: "#000000"
 EOF
 setGRUBConfig GRUB_THEME boot/grub/themes/hide.txt
 setGRUBConfig GRUB_CMDLINE_LINUX_DEFAULT '"quiet splash"'
+setGRUBConfig GRUB_GFXMODE 640x480
 
 chroot $TARGET update-grub
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 set -e
 
 if findmnt -n -o OPTIONS -T "$PWD" | grep "nodev">/dev/null; then
@@ -13,6 +14,18 @@ fi
 # compile dir
 if ! [[ -d compiled ]]; then
   mkdir compiled
+fi
+
+# compile xfce-winxp-tc
+if [[ -d compiled/xfce-winxp-tc ]]; then
+  echo "Using already built xfce-winxp-tc"
+else
+  cd compiled
+  git clone --depth=1 https://github.com/rozniak/xfce-winxp-tc.git xfce-winxp-tc
+  cd xfce-winxp-tc/packaging
+  sudo apt install $(./chkdeps.sh -l | cut -d':' -f2 | tr '\n' ' ') -y
+  ./buildall.sh
+  cd ../../..
 fi
 
 # compile ISOLINUX/syslinux
@@ -212,6 +225,14 @@ if [ -d $ASSETDIR ]; then rm -rv $ASSETDIR; fi
 cp -r ../assets $ASSETDIR/
 mkdir -p config/includes.chroot_after_packages/usr/share/consolefonts/
 mkdir -p config/includes.chroot_after_packages/etc/
+
+# copy xfce-winxp-tc debs
+XPTCDIR=config/includes.chroot_after_packages/root/xptc/
+rm -rvf $XPTCDIR
+mkdir -p $XPTCDIR
+for f in $(find ../compiled/xfce-winxp-tc/packaging/xptc -type f -name "*.deb"); do
+  cp $f $XPTCDIR
+done
 
 # copy fonts
 CONSOLEFONTS="config/includes.chroot_before_packages/usr/share/consolefonts"

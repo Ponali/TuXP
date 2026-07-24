@@ -24,6 +24,8 @@ rm /etc/systemd/system/getty@tty1.service.d/override.conf
 rm /root/.bash_profile
 sudo systemctl set-default graphical.target >/dev/null
 systemctl enable lightdm >/dev/null
+systemctl set-default graphical.target
+systemctl isolate graphical.target
 
 # log out to lightdm
 loginctl terminate-session "$XDG_SESSION_ID"

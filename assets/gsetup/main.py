@@ -4,6 +4,7 @@ import subprocess
 import threading
 import queue
 import socket
+import time
 if os.getlogin()=="root":
     os.system("bash ../setres.sh 640 480")
 
@@ -22,9 +23,13 @@ canvas.place(x=0,y=0)
 label1=canvas.create_text(20,60,width=600,anchor="nw", text="Nothing will work unless you do.", fill="white")
 
 # handle when a line is met
+logfn=f"/root/{time.strftime("%c").replace(" ","-")}.log" if os.getlogin()=="root" else "./log.txt"
+logfile=open(logfn,"w")
 def handleLine(line):
+    logfile.write(line+"\n")
     canvas.itemconfig(label1,text="SCRIPT LINE: "+line)
     if "REBOOT-70F8FA016722C807ED0EDF22CD688AFA" in line:
+        logfile.close()
         os.system("systemctl reboot")
 
 # when it gets clicked on while there's a popup it'll go down
